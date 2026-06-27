@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'All four fields are required.' });
   }
 
-  // The prompt sent to Gemini — structured for clean JSON output
+  // Structured prompt targeting clean JSON output
   const prompt = `You are a professional marketing copywriter for Indian small businesses.
 
 Generate marketing copy for this business:
@@ -22,9 +22,7 @@ Generate marketing copy for this business:
 - Target Customer: ${targetCustomer}
 - Unique Selling Point: ${usp}
 
-Return ONLY a valid JSON object. No explanation. No markdown. No code blocks.
-Use this exact structure:
-
+Return ONLY a valid JSON object matching this exact structure:
 {
   "whatsapp": "WhatsApp broadcast message — 60 to 80 words, conversational Hindi-friendly tone, 2 to 3 relevant emojis, ends with a clear call to action",
   "googleBusiness": "Google My Business description — 120 to 150 words, mentions the city naturally, professional tone, SEO-friendly keywords",
@@ -38,13 +36,12 @@ Use this exact structure:
 }`;
 
   try {
-    // Check if the API Key is present in environment variables
     if (!process.env.GEMINI_API_KEY) {
       console.error('Missing GEMINI_API_KEY environment variable.');
       return res.status(500).json({ error: 'Server configuration error: Missing API Key.' });
     }
 
-    // Call Gemini 3.5 Flash API via the standard v1beta endpoint
+    // Call Gemini 3.5 Flash via the stable v1beta endpoint
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
@@ -53,8 +50,9 @@ Use this exact structure:
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.8,
-            maxOutputTokens: 1200,
+            temperature: 0.7,
+            maxOutputTokens: 2500, // Increased to stop the text cutting off mid-sentence
+            responseMimeType: "application/json" // Forces Gemini to respond strictly in valid JSON format
           }
         })
       }
@@ -62,36 +60,28 @@ Use this exact structure:
 
     const data = await response.json();
 
-    // Check if the API returned an error structure instead of candidates
     if (data.error) {
       console.error('Gemini API Error details:', data.error);
       return res.status(500).json({ error: `API Error: ${data.error.message || 'Unknown error'}` });
     }
 
-    // Safely check if candidates exist before reading
     if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
       console.error('Unexpected Gemini API response structure:', JSON.stringify(data));
-      return res.status(500).json({ error: 'Failed to receive data from Gemini. Please check your prompt or API status.' });
+      return res.status(500).json({ error: 'Failed to receive data from Gemini. Please check API status.' });
     }
 
-    // Extract the text safely
-    const rawText = data.candidates[0].content.parts[0].text;
+    // Extract text payload
+    const rawText = data.candidates[0].content.parts[0].text.trim();
 
-    // Strip markdown code fences if Gemini adds them despite instructions
-    const cleanText = rawText
-      .replace(/```json\n?/g, '')
-      .replace(/```\n?/g, '')
-      .trim();
-
-    // Parse into JSON object
-    const parsed = JSON.parse(cleanText);
+    // Parse cleanly structured JSON
+    const parsed = JSON.parse(rawText);
 
     return res.status(200).json(parsed);
 
   } catch (error) {
     console.error('Generation error:', error);
     return res.status(500).json({
-      error: 'Generation failed. Please try again in a few seconds.'
+      error: 'Generation failed. The server received an invalid structure. Please try again.'
     });
   }
 }
