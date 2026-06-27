@@ -38,7 +38,13 @@ Use this exact structure:
 }`;
 
   try {
-    // Call Gemini Flash API — key is read from environment variable, never exposed
+    // Check if the API Key is present in environment variables
+    if (!process.env.GEMINI_API_KEY) {
+      console.error('Missing GEMINI_API_KEY environment variable.');
+      return res.status(500).json({ error: 'Server configuration error: Missing API Key.' });
+    }
+
+    // Call Gemini Flash API
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
@@ -56,7 +62,19 @@ Use this exact structure:
 
     const data = await response.json();
 
-    // Extract the text from Gemini's response structure
+    // Check if the API returned an error structure instead of candidates
+    if (data.error) {
+      console.error('Gemini API Error details:', data.error);
+      return res.status(500).json({ error: `API Error: ${data.error.message || 'Unknown error'}` });
+    }
+
+    // Safely check if candidates exist before reading
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      console.error('Unexpected Gemini API response structure:', JSON.stringify(data));
+      return res.status(500).json({ error: 'Failed to receive data from Gemini. Please check your prompt or API status.' });
+    }
+
+    // Extract the text safely
     const rawText = data.candidates[0].content.parts[0].text;
 
     // Strip markdown code fences if Gemini adds them despite instructions
