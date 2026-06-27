@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CopyDost - AI Marketing Copy for Indian Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary": "#004ac6",
+          "primary-container": "#eef2ff",
+          "secondary": "#9d4300",
+          "surface": "#ffffff",
+          "background": "#faf8ff",
+          "outline-variant": "#e2e8f0",
+          "on-surface": "#1e293b",
+          "on-surface-variant": "#64748b",
+          "whatsapp-green": "#25D366",
+          "brand-indigo": "#4F46E5"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.5rem",
+          "lg": "0.75rem",
+          "xl": "1rem",
+          "2xl": "1.5rem",
+          "full": "9999px"
+        },
+        "fontFamily": {
+          "sans": ["Plus Jakarta Sans", "Inter", "sans-serif"],
+          "headline": ["Plus Jakarta Sans", "sans-serif"]
+        },
+        "animation": {
+          "fade-in-up": "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+          "pulse-glow": "pulseGlow 3s ease-in-out infinite",
+        },
+        "keyframes": {
+          fadeInUp: {
+            '0%': { opacity: '0', transform: 'translateY(20px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          pulseGlow: {
+            '0%, 100%': { boxShadow: '0 0 15px 0px rgba(79, 70, 229, 0.3)' },
+            '50%': { boxShadow: '0 0 25px 8px rgba(79, 70, 229, 0.15)' },
+          }
+        }
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+
+  .thinking-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  .generate-btn:hover {
+    box-shadow: 0 0 35px 12px rgba(79, 70, 229, 0.4);
+    transform: scale(1.02);
+  }
+  .generate-btn:active {
+    transform: scale(0.98);
+  }
+  body {
+    background: radial-gradient(circle at top right, #f0f4ff 0%, #faf8ff 50%, #ffffff 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+  .input-focus-ring:focus {
+    box-shadow: 0 0 0 4px rgba(0, 74, 198, 0.1);
+  }
+</style>
+</head>
+<body class="bg-background text-on-surface font-sans selection:bg-primary/10 selection:text-primary min-h-screen flex flex-col">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-outline-variant/50">
+  <div class="flex items-center justify-between px-6 h-16 max-w-xl mx-auto">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+        <span class="material-symbols-outlined text-white text-xl" data-icon="bolt">bolt</span>
+      </div>
+      <h1 class="font-bold text-lg tracking-tight text-primary">CopyDost</h1>
+    </div>
+    <button class="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant" data-icon="help_outline">help_outline</span>
+    </button>
+  </div>
+</header>
+
+<main class="flex-1 px-6 pt-10 pb-20 max-w-xl mx-auto w-full space-y-12">
+
+  <!-- Headline -->
+  <div class="space-y-3 opacity-0 animate-fade-in-up stagger-1">
+    <h2 class="text-3xl font-extrabold tracking-tight leading-tight text-slate-900">
+      Craft your message <span class="text-primary">perfectly.</span>
+    </h2>
+    <p class="text-on-surface-variant leading-relaxed">AI-generated marketing copy for your business. Ready in 60 seconds.</p>
+  </div>
+
+  <!-- Form -->
+  <section class="opacity-0 animate-fade-in-up stagger-2">
+    <form class="space-y-5" id="copy-form">
+      <div class="space-y-1.5">
+        <label class="text-[13px] font-bold text-slate-500 uppercase tracking-widest px-1" for="business-type">Business Type</label>
+        <input class="w-full h-14 px-5 bg-white border border-outline-variant rounded-xl input-focus-ring focus:border-primary focus:ring-0 outline-none transition-all placeholder:text-slate-300 shadow-sm text-on-surface" id="business-type" placeholder="e.g. Salon, Clinic, Restaurant" type="text"/>
+      </div>
+      <div class="space-y-1.5">
+        <label class="text-[13px] font-bold text-slate-500 uppercase tracking-widest px-1" for="city">City</label>
+        <input class="w-full h-14 px-5 bg-white border border-outline-variant rounded-xl input-focus-ring focus:border-primary focus:ring-0 outline-none transition-all placeholder:text-slate-300 shadow-sm text-on-surface" id="city" placeholder="e.g. Gurugram, Mumbai, Pune" type="text"/>
+      </div>
+      <div class="space-y-1.5">
+        <label class="text-[13px] font-bold text-slate-500 uppercase tracking-widest px-1" for="target-customer">Target Customer</label>
+        <input class="w-full h-14 px-5 bg-white border border-outline-variant rounded-xl input-focus-ring focus:border-primary focus:ring-0 outline-none transition-all placeholder:text-slate-300 shadow-sm text-on-surface" id="target-customer" placeholder="e.g. Working women, Students" type="text"/>
+      </div>
+      <div class="space-y-1.5">
+        <label class="text-[13px] font-bold text-slate-500 uppercase tracking-widest px-1" for="usp">Unique Selling Point</label>
+        <input class="w-full h-14 px-5 bg-white border border-outline-variant rounded-xl input-focus-ring focus:border-primary focus:ring-0 outline-none transition-all placeholder:text-slate-300 shadow-sm text-on-surface" id="usp" placeholder="e.g. Home delivery, Open Sundays" type="text"/>
+      </div>
+      <button class="generate-btn w-full h-16 mt-4 bg-primary text-white font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 thinking-glow" onclick="generateCopy()" type="button">
+        <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+        Generate My Copy
+      </button>
+    </form>
+  </section>
+
+  <!-- Results -->
+  <section class="space-y-6 hidden animate-in fade-in slide-in-from-bottom-10 duration-1000" id="results-section">
+    <div class="flex items-center gap-3 border-b border-outline-variant pb-4">
+      <div class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+        <span class="material-symbols-outlined text-primary" data-icon="auto_fix">auto_fix</span>
+      </div>
+      <h3 class="font-bold text-xl text-slate-900">Your AI Generations</h3>
+    </div>
+    <div class="grid grid-cols-1 gap-5">
+
+      <!-- WhatsApp Card -->
+      <div class="group bg-white p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-whatsapp-green"></div>
+            <span class="text-xs font-bold uppercase tracking-widest text-slate-400">WhatsApp</span>
+          </div>
+          <button class="p-2 hover:bg-slate-50 rounded-lg text-primary transition-colors" onclick="copyText('whatsapp-text')">
+            <span class="material-symbols-outlined text-xl" data-icon="content_copy">content_copy</span>
+          </button>
+        </div>
+        <p class="text-on-surface leading-relaxed text-[15px]" id="whatsapp-text"></p>
+      </div>
+
+      <!-- Google Business Card -->
+      <div class="group bg-white p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+            <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Google Business</span>
+          </div>
+          <button class="p-2 hover:bg-slate-50 rounded-lg text-primary transition-colors" onclick="copyText('google-text')">
+            <span class="material-symbols-outlined text-xl" data-icon="content_copy">content_copy</span>
+          </button>
+        </div>
+        <p class="text-on-surface leading-relaxed text-[15px]" id="google-text"></p>
+      </div>
+
+      <!-- Instagram Card -->
+      <div class="group bg-white p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-gradient-to-tr from-yellow-400 to-purple-600"></div>
+            <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Instagram</span>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="p-3 bg-slate-50 rounded-lg border border-outline-variant">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] font-bold uppercase text-slate-400">Caption 1</span>
+              <button class="text-primary" onclick="copyText('insta-1')">
+                <span class="material-symbols-outlined text-lg">content_copy</span>
+              </button>
+            </div>
+            <p class="text-sm text-on-surface" id="insta-1"></p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg border border-outline-variant">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] font-bold uppercase text-slate-400">Caption 2</span>
+              <button class="text-primary" onclick="copyText('insta-2')">
+                <span class="material-symbols-outlined text-lg">content_copy</span>
+              </button>
+            </div>
+            <p class="text-sm text-on-surface" id="insta-2"></p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg border border-outline-variant">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] font-bold uppercase text-slate-400">Caption 3</span>
+              <button class="text-primary" onclick="copyText('insta-3')">
+                <span class="material-symbols-outlined text-lg">content_copy</span>
+              </button>
+            </div>
+            <p class="text-sm text-on-surface" id="insta-3"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekend Offer Card -->
+      <div class="group bg-primary text-white p-6 rounded-2xl border-none shadow-xl shadow-primary/20">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-white/70 text-sm" data-icon="stars">stars</span>
+            <span class="text-xs font-bold uppercase tracking-widest text-white/70">Exclusive Offer</span>
+          </div>
+          <button class="p-2 hover:bg-white/10 rounded-lg text-white transition-colors" onclick="copyText('weekend-text')">
+            <span class="material-symbols-outlined text-xl" data-icon="content_copy">content_copy</span>
+          </button>
+        </div>
+        <p class="font-medium leading-relaxed text-[16px]" id="weekend-text"></p>
+      </div>
+
+      <!-- Tagline -->
+      <div class="group bg-slate-50 p-8 rounded-2xl border border-dashed border-outline-variant flex flex-col items-center justify-center text-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Core Tagline</span>
+        <h4 class="text-2xl font-extrabold text-slate-900 italic" id="tagline-text"></h4>
+        <button class="mt-4 flex items-center gap-2 text-primary font-bold text-sm hover:underline" onclick="copyText('tagline-text')">
+          <span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+          Copy Tagline
+        </button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="py-12 px-6 border-t border-outline-variant opacity-0 animate-fade-in-up stagger-4"></footer>
+
+<script>
+  async function generateCopy() {
+
+    // Step 1: Read what the user typed in the four fields
+    const businessType = document.getElementById('business-type').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const targetCustomer = document.getElementById('target-customer').value.trim();
+    const usp = document.getElementById('usp').value.trim();
+
+    // Step 2: Stop if any field is empty
+    if (!businessType || !city || !targetCustomer || !usp) {
+      alert('Please fill in all four fields before generating.');
+      return;
+    }
+
+    // Step 3: Show loading state on the button
+    const btn = document.querySelector('.generate-btn');
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Thinking...';
+    btn.classList.remove('thinking-glow');
+    btn.disabled = true;
+
+    try {
+      // Step 4: Send the four inputs to our Vercel serverless function
+      // This is the secure route — API key never appears here
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ businessType, city, targetCustomer, usp })
+      });
+
+      // Step 5: If the server returned an error, throw it
+      if (!response.ok) {
+        throw new Error('Generation failed. Please try again.');
+      }
+
+      // Step 6: Parse the JSON response from Gemini
+      const data = await response.json();
+
+      // Step 7: Write Gemini's real output into each card on the page
+      document.getElementById('whatsapp-text').innerText = data.whatsapp;
+      document.getElementById('google-text').innerText = data.googleBusiness;
+      document.getElementById('insta-1').innerText = data.instagram[0];
+      document.getElementById('insta-2').innerText = data.instagram[1];
+      document.getElementById('insta-3').innerText = data.instagram[2];
+      document.getElementById('weekend-text').innerText = data.offer;
+      document.getElementById('tagline-text').innerText = '"' + data.tagline + '"';
+
+      // Step 8: Show the results section and scroll to it
+      const results = document.getElementById('results-section');
+      results.classList.remove('hidden');
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (error) {
+      // If anything goes wrong, show a clear message
+      alert('Something went wrong: ' + error.message);
+
+    } finally {
+      // Always restore the button whether it succeeded or failed
+      btn.innerHTML = originalContent;
+      btn.classList.add('thinking-glow');
+      btn.disabled = false;
+    }
+  }
+
+  function copyText(id) {
+    const text = document.getElementById(id).innerText;
+    const btn = document.querySelector(`[onclick="copyText('${id}')"]`);
+
+    navigator.clipboard.writeText(text).then(() => {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      const originalIcon = icon.innerText;
+      icon.innerText = 'check';
+      icon.classList.add('text-green-500');
+
+      setTimeout(() => {
+        icon.innerText = originalIcon;
+        icon.classList.remove('text-green-500');
+      }, 2000);
+    });
+  }
+</script>
+</body></html>
