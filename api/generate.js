@@ -44,9 +44,9 @@ Use this exact structure:
       return res.status(500).json({ error: 'Server configuration error: Missing API Key.' });
     }
 
-    // Call Gemini Flash API
+    // Call Gemini Flash API (Updated to v1 URL)
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
