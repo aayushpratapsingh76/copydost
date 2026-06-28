@@ -51,8 +51,8 @@ Return ONLY a valid JSON object matching this exact structure:
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 2500, // Increased to stop the text cutting off mid-sentence
-            responseMimeType: "application/json" // Forces Gemini to respond strictly in valid JSON format
+            maxOutputTokens: 2500,
+            responseMimeType: "application/json" 
           }
         })
       }
@@ -71,17 +71,26 @@ Return ONLY a valid JSON object matching this exact structure:
     }
 
     // Extract text payload
-    const rawText = data.candidates[0].content.parts[0].text.trim();
+    let rawText = data.candidates[0].content.parts[0].text.trim();
 
-    // Parse cleanly structured JSON
+    // ULTRA-ROBUST CLEANUP: Extract only the text between the first '{' and the last '}'
+    // This strips out markdown backticks or accidental trailing characters text cleanly.
+    const firstBracket = rawText.indexOf('{');
+    const lastBracket = rawText.lastIndexOf('}');
+    
+    if (firstBracket !== -1 && lastBracket !== -1 && lastBracket > firstBracket) {
+      rawText = rawText.substring(firstBracket, lastBracket + 1);
+    }
+
+    // Parse the completely isolated JSON string
     const parsed = JSON.parse(rawText);
 
     return res.status(200).json(parsed);
 
   } catch (error) {
-    console.error('Generation error:', error);
+    console.error('Generation parsing error:', error);
     return res.status(500).json({
-      error: 'Generation failed. The server received an invalid structure. Please try again.'
+      error: 'Generation failed to process clean structured text. Please try again.'
     });
   }
 }
