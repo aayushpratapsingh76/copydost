@@ -7,4 +7,3 @@ CopyDost is an AI-powered growth marketing copywriter designed for small busines
 * **Plain English:** Outputs clear, punchy, and easy-to-read English that connects naturally with local audiences.
 * **Multi-Platform Output:** Instantly delivers tailored content variations optimized for WhatsApp broadcasts, Google Business profiles, and Instagram captions.
 * **Smart Uptime:** Built with an automated fallback routing system to ensure fast, stable generation speeds even during global server traffic spikes.
-* 
